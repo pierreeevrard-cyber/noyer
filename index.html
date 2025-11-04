@@ -10,7 +10,9 @@
 <body>
   <header class="header">
     <div class="logo-container">
-      <img src="https://drive.google.com/uc?export=view&id=1qWZBJPaxeKUCTPUHiL9oFclZxlnM1RfZ" alt="Logo Noyer" class="logo" />
+      <!-- ✅ Pour un logo fiable, le mieux est de le placer dans ton repo -->
+      <!-- Place ton fichier 'logo_noyer.png' à la racine (même dossier que index.html) -->
+      <img src="./logo_noyer.png" alt="Logo Noyer" class="logo" />
       <span class="logo-text">Noyer</span>
     </div>
   </header>
@@ -20,17 +22,20 @@
       <h1>Vérifiez votre site</h1>
       <p class="subtitle">
         Noyer n’est pas adapté aux sites web affichant leurs annonces de manière dynamique.<br><br>
-        Si vous ne savez pas ce que cela signifie, pas de soucis, veuillez simplement introduire l’URL de votre site pour savoir s’il est éligible.
+        Si vous ne savez pas ce que cela signifie, pas de soucis — entrez simplement l’URL de votre site pour savoir s’il est éligible.
       </p>
     </section>
 
     <section class="card">
-      <h2>Vérifier mon site</h2>
+      <h2>URL vers les biens à vendre de mon agence</h2>
+      <p class="warning">
+        🚨 <strong>Important :</strong> ne mettez <u>pas</u> l’adresse de votre site d’accueil (ex: <em>www.monagence.fr</em>),<br>
+        mais celle de la <u>page où vos biens à vendre sont affichés</u> (ex: <em>www.monagence.fr/biens</em>).
+      </p>
       <form id="eligibility-form" class="eligibility">
         <input id="url" name="url" type="url" placeholder="https://www.votre-agence.fr/biens" required />
         <button id="verifyBtn" type="submit">Vérifier</button>
       </form>
-      <!-- Suppression du texte 'Interface prête...' -->
     </section>
 
     <footer class="foot">
