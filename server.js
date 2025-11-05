@@ -4,12 +4,17 @@ import Stripe from "stripe";
 import cors from "cors";
 
 const app = express();
-const stripe = new Stripe("sk_test_51SQ7b0KtSUAGLnZOxFZggrBfTg252Kbx0gHBDZIPM2dnIB4B6wN6NIN4rHN55NiUJyrXMcs9lnydk548w0uB5QGE001fAtuM6M"); // 🔑 ta clé secrète Stripe
+const stripe = new Stripe("sk_test_51SQ7b0KtSUAGLnZOxFZggrBfTg252Kbx0gHBDZIPM2dnIB4B6wN6NIN4rHN55NiUJyrXMcs9lnydk548w0uB5QGE001fAtuM6M");
 
 app.use(express.json());
-app.use(cors({ origin: "*" }));
+app.use(
+  cors({
+    origin: ["https://pierreevrard-cyber.github.io", "http://localhost:5500"],
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type"],
+  })
+);
 
-// ✅ Route pour créer une session Checkout
 app.post("/create-checkout-session", async (req, res) => {
   try {
     const session = await stripe.checkout.sessions.create({
@@ -17,12 +22,14 @@ app.post("/create-checkout-session", async (req, res) => {
       mode: "subscription",
       line_items: [
         {
-          price: "price_1SQ7cBKtSUAGLnZOJicoE24U", // ⚠️ Remplace par l'ID de ton prix Stripe (voir plus bas)
+          price: "price_1SQ7cBKtSUAGLnZOJicoE24U",
           quantity: 1,
         },
       ],
-      success_url: "https://ton-domaine.com/success.html?session_id={CHECKOUT_SESSION_ID}",
-      cancel_url: "https://ton-domaine.com/cancel.html",
+      success_url:
+        "https://pierreevrard-cyber.github.io/noyer-eligibility/success.html?session_id={CHECKOUT_SESSION_ID}",
+      cancel_url:
+        "https://pierreevrard-cyber.github.io/noyer-eligibility/cancel.html",
     });
 
     res.json({ url: session.url });
@@ -31,4 +38,10 @@ app.post("/create-checkout-session", async (req, res) => {
   }
 });
 
-app.listen(4242, () => console.log("✅ Serveur Stripe démarré sur http://localhost:4242"));
+app.get("/", (req, res) => {
+  res.send("✅ Serveur Stripe Noyer actif");
+});
+
+app.listen(4242, () =>
+  console.log("✅ Serveur Stripe démarré sur http://localhost:4242")
+);
