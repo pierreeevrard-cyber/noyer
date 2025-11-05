@@ -3,13 +3,14 @@ const N8N_WEBHOOK_URL = "https://pierre07.app.n8n.cloud/webhook/recieve_url";
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("eligibility-form");
+  const agencyInput = document.getElementById("agencyName");
   const urlInput = document.getElementById("url");
   const exampleInput = document.getElementById("exampleUrl");
   const statusEl = document.getElementById("status");
   const btn = document.getElementById("verifyBtn");
 
-  if (!form || !urlInput || !exampleInput) {
-    console.warn("IDs manquants dans le DOM (eligibility-form, url, exampleUrl)");
+  if (!form || !agencyInput || !urlInput || !exampleInput) {
+    console.warn("IDs manquants dans le DOM (eligibility-form, agencyName, url, exampleUrl)");
     return;
   }
 
@@ -17,7 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
     btn.disabled = true;
 
-    // Créer un élément temporaire d'état si non présent
     let status = statusEl;
     if (!status) {
       status = document.createElement("p");
@@ -30,13 +30,16 @@ document.addEventListener("DOMContentLoaded", () => {
     status.textContent = "⏳ Vérification en cours…";
 
     try {
+      const payload = {
+        agency_name: agencyInput.value.trim(),
+        page_url: urlInput.value.trim(),
+        example_url: exampleInput.value.trim(),
+      };
+
       const res = await fetch(N8N_WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          page_url: urlInput.value.trim(),
-          example_url: exampleInput.value.trim(),
-        }),
+        body: JSON.stringify(payload),
       });
 
       const text = await res.text();
@@ -47,26 +50,22 @@ document.addEventListener("DOMContentLoaded", () => {
         data = { eligible: false, reason: text || "Réponse invalide" };
       }
 
-      if (!res.ok) {
-        throw new Error(data?.reason || `HTTP ${res.status}`);
-      }
+      if (!res.ok) throw new Error(data?.reason || `HTTP ${res.status}`);
 
       if (data.eligible) {
-        // ✅ Cas éligible
         status.style.color = "#7bd88f";
         status.textContent = "✅ Éligible ! Votre site semble compatible.";
 
-        // Redirection vers la page 2 avec les URLs dans les paramètres
+        // ⏩ Redirection vers la page 2 après 1.5s
         setTimeout(() => {
           const params = new URLSearchParams({
+            agency_name: agencyInput.value.trim(),
             page_url: urlInput.value.trim(),
             example_url: exampleInput.value.trim(),
           });
           window.location.href = `page2.html?${params.toString()}`;
         }, 1500);
-
       } else {
-        // ❌ Cas non éligible
         status.style.color = "#ff6b6b";
         status.textContent = `❌ Non éligible. ${data.reason || ""}`.trim();
       }
