@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Noyer — Étape 2</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <main class="container">
+    <section class="hero">
+      <h1>Informations supplémentaires</h1>
+      <p class="subtitle">
+        Votre site est compatible ✅<br>
+        Complétez les informations suivantes pour finaliser la configuration.
+      </p>
+    </section>
+
+    <section class="card">
+      <form id="extra-form">
+        <div class="field-group">
+          <label>🌐 URL de la page des biens (verrouillée)</label>
+          <input id="page_url" name="page_url" type="url" readonly />
+        </div>
+
+        <div class="field-group">
+          <label>🏠 URL d’un bien (verrouillée)</label>
+          <input id="example_url" name="example_url" type="url" readonly />
+        </div>
+
+        <hr>
+
+        <div class="field-group">
+          <label>🏠 URL d’un autre bien</label>
+          <input id="extra_bien" name="extra_bien" type="url" placeholder="https://www.votre-agence.fr/biens/maison-456" required />
+        </div>
+
+        <div class="field-group">
+          <label>🖼️ URL d’une photo de bien 1</label>
+          <input id="photo1" name="photo1" type="url" placeholder="https://www.votre-agence.fr/images/photo1.jpg" required />
+        </div>
+
+        <div class="field-group">
+          <label>🖼️ URL d’une photo de bien 2</label>
+          <input id="photo2" name="photo2" type="url" placeholder="https://www.votre-agence.fr/images/photo2.jpg" required />
+        </div>
+
+        <div class="field-group">
+          <label>🏷️ URL du logo</label>
+          <input id="logo" name="logo" type="url" placeholder="https://www.votre-agence.fr/logo.png" required />
+        </div>
+
+        <button id="sendBtn" type="submit">Envoyer les informations</button>
+      </form>
+
+      <p id="status" class="status"></p>
+    </section>
+
+    <footer class="foot">
+      <small>© 2025 Noyer. Tous droits réservés.</small>
+    </footer>
+  </main>
+
+  <script src="page2.js"></script>
+</body>
+</html>
