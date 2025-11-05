@@ -1,5 +1,5 @@
 // === CONFIG ===
-const N8N_WEBHOOK_URL = "https://pierre07.app.n8n.cloud/webhook/noyer";
+const N8N_WEBHOOK_URL = "https://noyer-stripe-server.onrender.com/create-checkout-session";
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("extra-form");
