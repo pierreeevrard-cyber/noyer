@@ -55,6 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
     statusEl.textContent = "⏳ Envoi en cours…";
 
     const data = {
+      nom_agence: document.getElementById("nom_agence").value.trim(),
       page_url: pageUrlInput.value.trim(),
       example_url: exampleUrlInput.value.trim(),
       extra_bien: document.getElementById("extra_bien").value.trim(),
