@@ -1,5 +1,5 @@
 // === CONFIG ===
-const N8N_WEBHOOK_URL = "https://pierre07.app.n8n.cloud/webhook/noyer_agence";
+const N8N_WEBHOOK_URL = "https://pierre07.app.n8n.cloud/webhook/noyer";
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("extra-form");
