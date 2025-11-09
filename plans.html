@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abonnements Noyer</title>
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+      background: #fafafa;
+      color: #222;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    header {
+      background: #1b1b1b;
+      color: white;
+      padding: 30px 20px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+    .plans {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 40px auto;
+      gap: 20px;
+      max-width: 1000px;
+    }
+    .plan {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 25px;
+      width: 280px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+    }
+    .plan h2 {
+      margin-top: 0;
+      color: #333;
+    }
+    .price {
+      font-size: 1.6rem;
+      font-weight: bold;
+      margin: 10px 0;
+      color: #0074d4;
+    }
+    button {
+      background-color: #0074d4;
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    button:hover {
+      background-color: #005fa8;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Choisissez votre abonnement Noyer 🌿</h1>
+    <p>Sélectionnez la formule qui correspond le mieux à vos besoins</p>
+  </header>
+
+  <div class="plans">
+    <div class="plan">
+      <h2>Noyer Standard</h2>
+      <p class="price">49,00 €/mois</p>
+      <p>Idéal pour débuter avec une visibilité professionnelle.</p>
+      <button onclick="subscribe('price_1SQ7cBKtSUAGLnZOJicoE24U')">S’abonner</button>
+    </div>
+
+    <div class="plan">
+      <h2>Noyer Premium</h2>
+      <p class="price">89,99 €/mois</p>
+      <p>Un plan plus complet pour les agences exigeantes.</p>
+      <button onclick="subscribe('price_1SRZPSKtSUAGLnZO2uBwBfOS')">S’abonner</button>
+    </div>
+
+    <div class="plan">
+      <h2>Noyer Business</h2>
+      <p class="price">109,00 €/mois</p>
+      <p>La solution la plus complète pour les entreprises ambitieuses.</p>
+      <button onclick="subscribe('price_1SRZPDKtSUAGLnZOgK6rq2U0')">S’abonner</button>
+    </div>
+  </div>
+
+  <script>
+    async function subscribe(priceId) {
+      // Données fictives ici, tu peux adapter si tu veux envoyer des infos réelles
+      const body = {
+        plan: priceId,
+        nom_agence: "Client Noyer",
+        page_url: "https://pierreeevrard-cyber.github.io/noyer-eligibility/",
+        example_url: "",
+        extra_bien: "",
+        logo: "",
+        photo1: "",
+        photo2: "",
+      };
+
+      try {
+        const response = await fetch("https://noyer-stripe-server.onrender.com/create-checkout-session", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+
+        const data = await response.json();
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          alert("Erreur : impossible de créer la session de paiement.");
+          console.error(data);
+        }
+      } catch (err) {
+        alert("Erreur de communication avec le serveur.");
+        console.error(err);
+      }
+    }
+  </script>
+
+</body>
+</html>
