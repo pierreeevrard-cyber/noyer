@@ -7,59 +7,79 @@
   <style>
     body {
       font-family: "Inter", sans-serif;
-      background: #fafafa;
-      color: #222;
+      background-color: #0d0d0d;
+      color: #f5f5f5;
       margin: 0;
       padding: 0;
-      text-align: center;
     }
     header {
-      background: #1b1b1b;
-      color: white;
-      padding: 30px 20px;
+      text-align: center;
+      padding: 50px 20px 30px;
+      background-color: #000;
     }
-    h1 {
+    header h1 {
+      font-size: 2.2rem;
       margin: 0;
-      font-size: 2rem;
+    }
+    header p {
+      margin-top: 10px;
+      font-size: 1rem;
+      color: #aaa;
     }
     .plans {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin: 40px auto;
-      gap: 20px;
-      max-width: 1000px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      max-width: 1100px;
+      margin: 50px auto;
+      padding: 0 20px;
     }
     .plan {
-      background: white;
-      border: 1px solid #ddd;
-      border-radius: 12px;
-      padding: 25px;
-      width: 280px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+      background: #121212;
+      border: 1px solid #222;
+      border-radius: 16px;
+      padding: 35px 25px;
+      text-align: center;
+      box-shadow: 0 0 25px rgba(0,0,0,0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .plan:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 40px rgba(0, 115, 255, 0.2);
+    }
+    .emoji {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
     }
     .plan h2 {
-      margin-top: 0;
-      color: #333;
+      margin: 0;
+      font-size: 1.4rem;
+      color: #fff;
     }
     .price {
-      font-size: 1.6rem;
+      font-size: 1.8rem;
       font-weight: bold;
-      margin: 10px 0;
-      color: #0074d4;
+      color: #00a8ff;
+      margin: 12px 0;
+    }
+    .plan p {
+      color: #ccc;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      line-height: 1.4em;
     }
     button {
-      background-color: #0074d4;
-      color: white;
+      background-color: #00a8ff;
+      color: #fff;
       border: none;
-      padding: 12px 18px;
+      padding: 12px 22px;
       border-radius: 8px;
       font-size: 1rem;
       cursor: pointer;
       transition: background 0.2s ease;
     }
     button:hover {
-      background-color: #005fa8;
+      background-color: #0085cc;
     }
   </style>
 </head>
@@ -71,23 +91,29 @@
   </header>
 
   <div class="plans">
+    <!-- Standard -->
     <div class="plan">
+      <div class="emoji">🌱</div>
       <h2>Noyer Standard</h2>
-      <p class="price">49,00 €/mois</p>
+      <p class="price">49,99 €/mois</p>
       <p>Idéal pour débuter avec une visibilité professionnelle.</p>
       <button onclick="subscribe('price_1SQ7cBKtSUAGLnZOJicoE24U')">S’abonner</button>
     </div>
 
-    <div class="plan">
+    <!-- Premium -->
+    <div class="plan" style="border: 1px solid #0074d4;">
+      <div class="emoji">🌳</div>
       <h2>Noyer Premium</h2>
       <p class="price">89,99 €/mois</p>
       <p>Un plan plus complet pour les agences exigeantes.</p>
       <button onclick="subscribe('price_1SRZPSKtSUAGLnZO2uBwBfOS')">S’abonner</button>
     </div>
 
+    <!-- Business -->
     <div class="plan">
+      <div class="emoji">🏢</div>
       <h2>Noyer Business</h2>
-      <p class="price">109,00 €/mois</p>
+      <p class="price">109,99 €/mois</p>
       <p>La solution la plus complète pour les entreprises ambitieuses.</p>
       <button onclick="subscribe('price_1SRZPDKtSUAGLnZOgK6rq2U0')">S’abonner</button>
     </div>
@@ -95,7 +121,6 @@
 
   <script>
     async function subscribe(priceId) {
-      // Données fictives ici, tu peux adapter si tu veux envoyer des infos réelles
       const body = {
         plan: priceId,
         nom_agence: "Client Noyer",
